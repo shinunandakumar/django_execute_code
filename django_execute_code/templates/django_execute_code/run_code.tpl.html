@@ -1,0 +1,57 @@
+{% extends "admin/base_site.html" %}
+{% load static i18n %}
+{% block content %}
+
+	<h3>{{inner_label}}</h3>
+
+	{% if form.exec_val %}
+		<div class="code-pre-area dark-mode">
+			<pre>{{form.exec_val }}</pre>
+		</div>
+	{% endif %}
+	{% if form.errors %}
+		<div class="code-pre-area red-mode">
+			{% for key,value in form.errors.items %} 
+				{{ value|escape }}
+			{% endfor %}
+		</div>
+	{% endif %}
+	{% if form.exec_error %}
+		<div class="code-pre-area red-mode">
+			<pre>{{form.exec_error  }}</pre>
+		</div>
+	{% endif %}
+	<form action="{{form.action|default:request.path}}" method="POST">
+
+		{% csrf_token %}
+		<div style="display: none;"></div>
+		{% for form_field in form %}
+			<div id="content-box" class="col-lg-12">
+				<label for="enable_test_mode">{{form_field.label}}:</label>
+				{% for error in error.title %}
+					{% for error in error %}
+						<span class="text-danger"> *{{ error }} </span>
+					{% endfor %}
+				{% endfor %}
+				{{form_field}}
+				<pre id="highlight-area"></pre>
+			</div>
+		{% endfor %}
+
+		{% if form.buttons %}
+			<div class="button-pad">
+				{% for button in form.buttons %}
+					<button type="{{button.type}}" class="button {{button.class}}" title="{{button.label}}" value="{{ button.name }}">{{button.label}}</button>
+				{% endfor %}
+			</div>
+		{% endif %}
+	</form>
+
+{% endblock %}
+
+<!-- Load Css and Js -->
+
+{% block extrastyle %}
+	{{form.media.css}}
+	{{form.media.js}}
+{% endblock %}
