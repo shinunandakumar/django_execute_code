@@ -26,8 +26,6 @@ Configuration
 
 #. ``<root_url_folder>/urls.py``::
 
-    from django_execute_code import urls
-
     urlpatterns += [
         url('_debug_/', include('django_execute_code.urls')),
     ]

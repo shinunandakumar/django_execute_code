@@ -147,3 +147,10 @@ div#content-box > pre#highlight-area > span {
 .button-pad{
   padding: 8px 6px;
 }
+#exec-warning {
+  color: #000!important;
+  background-color: #ffeb3b!important;
+  font-size: 13px;
+  width : 30%;
+  padding:5px;
+}

@@ -4,3 +4,7 @@ Change Log
 0.1 (02/06/2022)
 -------------------
 - Initial Release
+
+0.2 (13/06/2022)
+-------------------
+- Added a warning message, minified css and js files
