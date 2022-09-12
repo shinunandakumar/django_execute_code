@@ -22,14 +22,14 @@ Configuration
             ...
             'django_execute_code',
         ]
-    '''
+    
 
 #. ``<root_url_folder>/urls.py``::
 
     urlpatterns += [
         url('_debug_/', include('django_execute_code.urls')),
     ]
-    '''  
+      
 
 Usage
 ==============================================
