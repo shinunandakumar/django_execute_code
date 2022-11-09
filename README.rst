@@ -16,7 +16,7 @@ Configuration
 =============
 
 
-#. ``settings.py``::
+#. settings.py::
 
     INSTALLED_APPS = [
             ...
@@ -24,7 +24,7 @@ Configuration
         ]
     
 
-#. ``<root_url_folder>/urls.py``::
+#. <root_url_folder>/urls.py::
 
     urlpatterns += [
         url('_debug_/', include('django_execute_code.urls')),
@@ -39,3 +39,4 @@ then login as super user and go to this url `http://<your_site_url>/_debug_/exec
 Contributing
 =====
 If you think you've found a bug or are interested in contributing to this project check out `django-exec-code on Github. <https://github.com/shinunandakumar/django_execute_code>`_.
+Author `Linkdin. <https://www.linkedin.com/in/shinu-n-508849168/>`_

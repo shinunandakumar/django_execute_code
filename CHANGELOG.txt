@@ -8,3 +8,7 @@ Change Log
 0.2 (13/06/2022)
 -------------------
 - Added a warning message, minified css and js files
+
+0.3 (10/11/2022)
+-------------------
+- Optimization started and few changes in the readme file
