@@ -22,7 +22,7 @@ classifiers = [
  
 setup(
   name='django-execute-code',
-  version='0.2',
+  version='0.3',
   description='django execute code for Django 2.*',
   long_description=open('README.rst').read(),
   long_description_content_type='text/markdown',
