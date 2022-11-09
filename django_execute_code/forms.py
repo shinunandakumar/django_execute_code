@@ -18,10 +18,7 @@ class ExecuteForm(forms.Form):
         self.buttons =[
             {
                 'type':"submit",'label':_("Run"),'name': 'save','class':"btn"
-            },
-            {
-                'type':"reset",'id':'hard-reset','label':_("Reset"),'name': 'reset','class':"btn"
-            },
+            }
         ]
 
     class Media:
