@@ -1,55 +1,88 @@
-{% extends "admin/base_site.html" %}
+{% extends "admin/base.html" %}
 {% load static i18n %}
+{% block coltype %}colLS{% endblock %}
+{% if is_popup %}
+	{% block branding %}
+	<h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('Django administration') }}</a></h1>
+	{% endblock %}
+	{% block usertools %}
+		<div id="user-tools">
+            {% block welcome-msg %}
+                {% trans 'Welcome,' %}
+                <strong>{% firstof user.get_short_name user.get_username %}</strong>.
+            {% endblock %}
+            {% block userlinks %}
+                {% if site_url %}
+                    <a href="{{ site_url }}">{% trans 'View site' %}</a> /
+                {% endif %}
+                {% if user.is_active and user.is_staff %}
+                    {% url 'django-admindocs-docroot' as docsroot %}
+                    {% if docsroot %}
+                        <a href="{{ docsroot }}">{% trans 'Documentation' %}</a> /
+                    {% endif %}
+                {% endif %}
+                {% if user.has_usable_password %}
+                <a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a> /
+                {% endif %}
+                <a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a>
+            {% endblock %}
+        </div>
+	{% endblock %}
+{% endif %}
 {% block content %}
 
-	<h3>{{inner_label}}</h3>
-
-	{% if form.exec_val %}
-		<div class="code-pre-area dark-mode">
-			<pre>{{form.exec_val }}</pre>
-		</div>
-	{% endif %}
-	{% if form.errors %}
-		<div class="code-pre-area red-mode">
-			{% for key,value in form.errors.items %} 
-				{{ value|escape }}
-			{% endfor %}
-		</div>
-	{% endif %}
-	{% if form.exec_error %}
-		<div class="code-pre-area red-mode">
-			<pre>{{form.exec_error  }}</pre>
-		</div>
-	{% endif %}
-	<form action="{{form.action|default:request.path}}" method="POST">
-
-		{% csrf_token %}
-		<div style="display: none;"></div>
+	<main class="SiteContent SiteContent--default">
+    <form action="{{form.action|default:request.path}}" method="POST" id="execute-code">
+      {% csrf_token %}
+      <div class="PlayPage">
+        <div class="Playground-controls">
+          <h1 class="Playground-title">{{inner_label}}</h1>
+          <div class="Playground-buttons">
+            {% if form.buttons %}
+            <div class="button-pad">
+              {% for button in form.buttons %}
+                <button type="{{button.type}}" class="button {{button.class}}" title="{{button.label}}" value="{{ button.name }}">{{button.label}}</button>
+              {% endfor %}
+            </div>
+          {% endif %}
+          </div>
+        </div>
 		{% for form_field in form %}
-			<div id="content-box" class="col-lg-12">
-				<label for="enable_test_mode">{{form_field.label}}:</label>
-				{% for error in error.title %}
-					{% for error in error %}
-						<span class="text-danger"> *{{ error }} </span>
+			<div class="Playground-inputContainer">
+				<div id="wrap">
+					{% for error in error.title %}
+						{% for error in error %}
+							<span class="text-danger"> *{{ error }} </span>
+						{% endfor %}
 					{% endfor %}
-				{% endfor %}
-				{{form_field}}
-				<pre id="highlight-area"></pre>
+					{{form_field}}
+				</div>
 			</div>
 		{% endfor %}
+        <div class="Playground-outputContainer js-playgroundOutputEl">
+          {% include pre_template %}
+        </div>
+        <div class="PlayAbout">
+          <p><b>About the Django execute code</b></p>
+          <p>
+            The Django execute code is a python package.
+            It allows users to execute python scripts through web interface (It only works when DEBUG = True in your Django settings file).
+          </p>
+          <p>
+            There are limitations to the programs that can be run in the Django execute code/
+          </p>
+          <p>
+          {% if show_warning %}
+            <div id="exec-warning">
+              WARNING: Be careful while executing Arbitrary code since it cant be revertable.!
+            </div>
+          {% endif %}
+          </p>
+        </div>
+      </div>
+    </form>
+  </main>
 
-		{% if form.buttons %}
-			<div class="button-pad">
-				{% for button in form.buttons %}
-					<button type="{{button.type}}" class="button {{button.class}}" title="{{button.label}}" value="{{ button.name }}">{{button.label}}</button>
-				{% endfor %}
-			</div>
-		{% endif %}
-	</form>
-
-	<div id="exec-warning">
-		{% trans "WARNING: Be careful while executing Arbitrary code since it cant be revertable.!" %}
-	</div>
 {% endblock %}
 
 <!-- Load Css and Js -->

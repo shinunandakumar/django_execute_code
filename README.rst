@@ -8,7 +8,7 @@ You can do any operations that can be performed in python shell with this packag
 Installation
 ============
 
-#. Install django-execute-code using ``pip``::
+#. Install django-execute-code using ``pip``:
 
     pip install django-execute-code
 
@@ -16,7 +16,7 @@ Configuration
 =============
 
 
-#. settings.py::
+#. settings.py:
 
     INSTALLED_APPS = [
             ...
@@ -24,17 +24,17 @@ Configuration
         ]
     
 
-#. <root_url_folder>/urls.py::
+#. <settings_folder>/urls.py:
 
     urlpatterns += [
-        url('_debug_/', include('django_execute_code.urls')),
+        url('debug/', include('django_execute_code.urls')),
     ]
       
 
 Usage
 ==============================================
 go to your django site after installing and configuring this package,
-then login as super user and go to this url `http://<your_site_url>/_debug_/execute-python/`
+then login as super user and go to this url `http://<your_site_url>/debug/execute-python/`
 
 Contributing
 =====

@@ -6,5 +6,5 @@ from django_execute_code.views import ExecutePythonCode
 '''
 if settings.DEBUG:
     urlpatterns = [
-        path('execute-python/', ExecutePythonCode.as_view(), name='execute_python')
+        path('execute-python/', ExecutePythonCode.as_view(), name='execute_python'),
     ]
